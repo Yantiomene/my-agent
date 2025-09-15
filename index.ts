@@ -1,6 +1,6 @@
 import { stepCountIs, streamText } from "ai";
 import { google } from "@ai-sdk/google";
-import { SYSTEM_PROMPT } from "./prompts";
+import { SYSTEM_PROMPT, INITIAL_REVIEW_PROMPT } from './prompts';
 import { getFileChangesInDirectoryTool, generateCommitMessageTool, writeReviewToMarkdownTool } from "./tools";
 
 const codeReviewAgent = async (prompt: string) => {
@@ -23,10 +23,6 @@ const codeReviewAgent = async (prompt: string) => {
 
 
 const cliPrompt = process.argv[2];
-const finalPrompt = cliPrompt;
+const finalPrompt = cliPrompt || INITIAL_REVIEW_PROMPT;
 
-if (finalPrompt) {
-  await codeReviewAgent(finalPrompt);
-} else {
-  throw new Error('Error: You must provide a prompt');
-}
+await codeReviewAgent(finalPrompt);

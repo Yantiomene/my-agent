@@ -37,3 +37,5 @@ You are reviewing with the intent to **help the author succeed**, **improve the 
 - When appropriate, use \`generateCommitMessageTool\` to create a concise and informative commit message based on the code changes.
 - To summarize your review for documentation or record-keeping, use \`writeReviewToMarkdownTool\` to output your comprehensive code review into a Markdown file.
 `;
+
+export const INITIAL_REVIEW_PROMPT = `Please review the provided code changes. Focus on correctness, clarity, maintainability, consistency, performance, security, testing, and scalability. Provide constructive feedback with actionable suggestions.`;

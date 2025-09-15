@@ -26,12 +26,14 @@ To install dependencies:
 bun install
 ```
 
-## Usage
+### Usage
 
-To run the code review agent:
+To run the code review agent, use the following command:
 
 ```bash
-bun run index.ts
+bun run index.ts [your-custom-prompt]
 ```
+
+-   **`[your-custom-prompt]`**: (Optional) Provide a custom prompt for the AI agent. If no custom prompt is provided, the agent will use a default initial review prompt defined in `prompts.ts`.
 
 This project was created using `bun init` in bun v1.2.22. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
