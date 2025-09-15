@@ -22,6 +22,11 @@ const codeReviewAgent = async (prompt: string) => {
 };
 
 
-await codeReviewAgent(
-  "Review the code changes in '../my-agent' directory, make your reviews and suggestions file by file, then generate a commit message and wite review to markdown",
-);
+const cliPrompt = process.argv[2];
+const finalPrompt = cliPrompt;
+
+if (finalPrompt) {
+  await codeReviewAgent(finalPrompt);
+} else {
+  throw new Error('Error: You must provide a prompt');
+}

@@ -1,30 +1,43 @@
-# Code Review
-
-## Files Reviewed:
-
 ### `index.ts`
 
-**Summary of Changes:**
-The prompt string passed to `codeReviewAgent` has been updated to reflect the new instructions for generating a commit message and writing the review to markdown.
+**Changes:**
+- The `codeReviewAgent` call has been updated to accept a prompt from the command-line arguments (`process.argv[2]`).
+- A new variable `cliPrompt` is introduced to capture the command-line argument.
+- `finalPrompt` is assigned the value of `cliPrompt`.
+- An `if` condition checks if `finalPrompt` exists, then calls `codeReviewAgent` with it.
+- An `else` block throws an error if no prompt is provided.
 
-**Feedback:**
-*   **Clarity & Correctness:** The update to the prompt accurately reflects the expanded capabilities and instructions for the agent. This change ensures the agent is correctly guided to perform the new tasks.
-*   **Maintainability (Minor Suggestion):** For future scalability, if the prompts become significantly longer or more dynamic, consider externalizing them into a separate configuration or prompt definition file. For the current scope, an inline string is acceptable.
+**Review:**
+
+1.  **Flexibility and Reusability:**
+    *   **Good:** This is a significant improvement! Hardcoding the prompt made the agent less versatile. By allowing the prompt to be passed via CLI arguments, the agent becomes much more flexible and reusable for different review scenarios.
+
+2.  **Error Handling:**
+    *   **Good:** The addition of an `else` block to `throw new Error('Error: You must provide a prompt')` is excellent. It provides clear feedback to the user if they forget to supply a necessary argument, improving the overall user experience and robustness of the script.
+
+3.  **Clarity:**
+    *   **Good:** The variable names `cliPrompt` and `finalPrompt` are clear and easy to understand. The logic for checking and using the prompt is straightforward.
+
+4.  **Nit: Newline at End of File:**
+    *   **Suggestion:** The file is missing a newline character at the end (`No newline at end of file`). While not strictly a functional bug, this is a common best practice in many codebases and can prevent issues with `diff` tools or linters. Consider adding a blank line at the end of the file.
 
 ### `prompts.ts`
 
-**Summary of Changes:**
-Backticks (`` ` ``) used around tool names (e.g., `generateCommitMessageTool`, `writeReviewToMarkdownTool`) have been escaped with a backslash (`` \` ``).
+**Changes:**
+- A very minor change to the last line, from ``` to ``;. This appears to be a correction to properly close a multi-line string or a formatting fix.
 
-**Feedback:**
-*   **Correctness & Readability (Excellent Improvement):** This is a very good and important correction! By escaping the backticks, you ensure that when this prompt is rendered (presumably as Markdown), the tool names will be displayed literally within code formatting (e.g., `generateCommitMessageTool`) rather than being interpreted as the start or end of a code block. This significantly improves the clarity and correct rendering of the instructions for the agent. Well done catching this detail.
+**Review:**
 
-## Generated Commit Message:
+1.  **Correctness:**
+    *   **Good:** This looks like a necessary correction to properly terminate the string literal, ensuring the prompt content is correctly defined. It doesn't appear to introduce any logical errors.
 
-```
-refactor(index.ts,prompts.ts): update index.ts, prompts.ts
+2.  **Nit: Newline at End of File:**
+    *   **Suggestion:** Similar to `index.ts`, this file also appears to be missing a newline character at the end. It's a good practice to ensure all text files end with a newline.
 
-Changes:
-- index.ts
-- prompts.ts
-```
+---
+
+**Overall Summary:**
+
+These changes are positive, particularly the enhancements in `index.ts` which significantly improve the usability and robustness of the `codeReviewAgent` by making the prompt dynamic and adding error handling. The change in `prompts.ts` seems like a minor but necessary correction. The only recurring minor suggestion is to ensure a newline character exists at the end of both files for consistency and best practice.
+
+---
